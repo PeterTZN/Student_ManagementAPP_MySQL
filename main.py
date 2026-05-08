@@ -297,8 +297,9 @@ class SearchDialog(QDialog):
         name = self.student_name.text()
         connection = DatabaseConnection().connect()
         cursor = connection.cursor()
-        result = cursor.execute("SELECT * FROM students WHERE name = %s", (name,))
-        rows = list(result)
+        cursor.execute("SELECT * FROM students WHERE name = %s", (name,))
+        results = cursor.fetchall()
+        rows = list(results)
         print(rows)
         items = main_window.table.findItems(name, Qt.MatchFlag.MatchFixedString)
         for item in items:
